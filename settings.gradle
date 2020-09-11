@@ -1,0 +1,3 @@
+include ':tedimagepicker'
+include ':app'
+rootProject.name = "VideoLightCompressor"
