@@ -11,4 +11,6 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="compress_video">Compress Video</string>
+    <string name="compress">Compress</string>
+    <string name="keep_original_resolution">Keep Original Resolution</string>
 </resources>
