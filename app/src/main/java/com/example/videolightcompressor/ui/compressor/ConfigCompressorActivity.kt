@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.abedelazizshe.lightcompressorlibrary.CompressionListener
 import com.abedelazizshe.lightcompressorlibrary.VideoQuality
+import com.dd.processbutton.iml.ActionProcessButton
 import com.example.videolightcompressor.R
 import com.example.videolightcompressor.extensions.AppSettings
 import com.example.videolightcompressor.extensions.compressVideo
@@ -42,14 +43,15 @@ class ConfigCompressorActivity : AppCompatActivity() {
                     R.id.rdLow -> AppSettings.videoQuality = VideoQuality.LOW.ordinal
                 }
             }
+            btnStartComPress.setMode(ActionProcessButton.Mode.PROGRESS)
             btnStartComPress.setOnClickListener {
                 uri.compressVideo(getVideoQuality(), AppSettings.keepOriginalResolution, object : CompressionListener {
                     override fun onStart() {
-                        btnStartComPress.startLoader()
+                        btnStartComPress.progress = 1
                     }
 
                     override fun onSuccess() {
-                        btnStartComPress.stopLoader()
+                        btnStartComPress.progress = 100
                     }
 
                     override fun onFailure(failureMessage: String) {
@@ -57,11 +59,11 @@ class ConfigCompressorActivity : AppCompatActivity() {
                     }
 
                     override fun onProgress(percent: Float) {
-                        btnStartComPress.setProgress(percent.toInt())
+                        btnStartComPress.progress = percent.toInt()
                     }
 
                     override fun onCancelled() {
-                        btnStartComPress.stopLoader()
+                        btnStartComPress.error = getString(R.string.msg_failed_to_compress)
                     }
                 })
             }
