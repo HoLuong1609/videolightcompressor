@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VideoLightCompressor</string>
+    <string name="app_name">Video</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -11,6 +11,17 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="compress_video">Compress Video</string>
+    <string name="start_compress">Start Compress</string>
     <string name="compress">Compress</string>
     <string name="keep_original_resolution">Keep Original Resolution</string>
+    <string name="video_quality">Video Quality</string>
+    <string name="video_info">Video Properties</string>
+    <string name="high">high</string>
+    <string name="medium">medium</string>
+    <string name="low">low</string>
+    <string name="path">Path:</string>
+    <string name="resolution">Resolution:</string>
+    <string name="mime_type">Mime Type:</string>
+    <string name="file_size">File Size:</string>
+    <string name="duration">Duration:</string>
 </resources>

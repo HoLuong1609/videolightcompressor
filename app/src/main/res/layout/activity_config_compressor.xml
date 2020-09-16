@@ -6,12 +6,150 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.videolightcompressor.ui.compressor.ConfigCompressorActivity">
 
+    <com.example.videolightcompressor.customView.VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintDimensionRatio="2:1"/>
+
+    <TextView
+        android:id="@+id/tvVideoInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/video_info"
+        app:layout_constraintTop_toBottomOf="@id/videoView"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"/>
+
+    <TextView
+        android:id="@+id/tvPathTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/path"
+        app:layout_constraintTop_toBottomOf="@id/tvVideoInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+
+    <TextView
+        android:id="@+id/tvPath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="/storage/emulated/0/Movies/[ Thuyết Minh ] LẤY DANH NGHĨA NGƯỜI NHÀ - Tập 03 - Phim Hay 2020 - Đàm Tùng Vận - Tống Uy Long.mp4"
+        app:layout_constraintTop_toTopOf="@id/tvPathTitle"
+        app:layout_constraintStart_toEndOf="@id/labelBarrier"/>
+
+    <TextView
+        android:id="@+id/tvResolutionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/resolution"
+        app:layout_constraintTop_toBottomOf="@id/tvPath"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+
+    <TextView
+        android:id="@+id/tvResolution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="1920x1080"
+        app:layout_constraintTop_toTopOf="@id/tvResolutionTitle"
+        app:layout_constraintStart_toEndOf="@id/labelBarrier"/>
+
+    <TextView
+        android:id="@+id/tvMimeTypeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/mime_type"
+        app:layout_constraintTop_toBottomOf="@id/tvResolution"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+
+    <TextView
+        android:id="@+id/tvMimeType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="MP4"
+        app:layout_constraintTop_toTopOf="@id/tvMimeTypeTitle"
+        app:layout_constraintStart_toEndOf="@id/labelBarrier"/>
+
+    <TextView
+        android:id="@+id/tvFileSizeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/file_size"
+        app:layout_constraintTop_toBottomOf="@id/tvMimeType"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+
+    <TextView
+        android:id="@+id/tvFileSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="199.94 MB"
+        app:layout_constraintTop_toTopOf="@id/tvFileSizeTitle"
+        app:layout_constraintStart_toEndOf="@id/labelBarrier"/>
+
+    <TextView
+        android:id="@+id/tvDurationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/duration"
+        app:layout_constraintTop_toBottomOf="@id/tvFileSize"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="01:30"
+        app:layout_constraintTop_toTopOf="@id/tvDurationTitle"
+        app:layout_constraintStart_toEndOf="@id/labelBarrier"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/labelBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="tvPathTitle,tvResolutionTitle,tvMimeTypeTitle" />
+
     <TextView
         android:id="@+id/tvCompress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/compress"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDuration"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -29,10 +167,63 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"/>
 
     <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/keepResolutionSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/tvKeepOriginalResolution"
         app:layout_constraintBottom_toBottomOf="@id/tvKeepOriginalResolution"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
+
+    <TextView
+        android:id="@+id/tvVideoQuality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/video_quality"
+        app:layout_constraintTop_toBottomOf="@id/tvKeepOriginalResolution"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_vertical_margin"
+        app:layout_constraintTop_toBottomOf="@id/tvVideoQuality"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rdHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/high"
+            android:textAllCaps="true" />
+
+        <RadioButton
+            android:id="@+id/rdMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/medium"
+            android:textAllCaps="true" />
+
+        <RadioButton
+            android:id="@+id/rdLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/low"
+            android:textAllCaps="true" />
+    </RadioGroup>
+
+    <github.ishaan.buttonprogressbar.ButtonProgressBar
+        android:id="@+id/btnStartComPress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/start_compress"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

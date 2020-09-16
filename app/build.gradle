@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -8,10 +9,14 @@ android {
 
     defaultConfig {
         applicationId "com.example.videolightcompressor"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     buildTypes {
@@ -43,7 +48,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
     implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'com.google.android.exoplayer:exoplayer:2.11.7'
     implementation project(path: ':tedimagepicker')
     implementation project(path: ':lightcompressor')
+    implementation 'com.github.ishaan1995:ButtonProgressBar:1.0'
+    implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-core:1.0.15'
+    implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-native:1.0.15'
 
 }
