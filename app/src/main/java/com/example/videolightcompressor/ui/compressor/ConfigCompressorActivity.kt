@@ -9,10 +9,7 @@ import com.abedelazizshe.lightcompressorlibrary.CompressionListener
 import com.abedelazizshe.lightcompressorlibrary.VideoQuality
 import com.dd.processbutton.iml.ActionProcessButton
 import com.example.videolightcompressor.R
-import com.example.videolightcompressor.extensions.AppSettings
-import com.example.videolightcompressor.extensions.compressVideo
-import com.example.videolightcompressor.extensions.extractVideoInfo
-import com.example.videolightcompressor.extensions.showSnackBar
+import com.example.videolightcompressor.extensions.*
 import kotlinx.android.synthetic.main.activity_config_compressor.*
 
 class ConfigCompressorActivity : AppCompatActivity() {
@@ -43,27 +40,35 @@ class ConfigCompressorActivity : AppCompatActivity() {
                     R.id.rdLow -> AppSettings.videoQuality = VideoQuality.LOW.ordinal
                 }
             }
-            btnStartComPress.setMode(ActionProcessButton.Mode.PROGRESS)
+            btnStartComPress.setMode(ActionProcessButton.Mode.ENDLESS)
             btnStartComPress.setOnClickListener {
+                btnStartComPress.isEnabled = false
                 uri.compressVideo(getVideoQuality(), AppSettings.keepOriginalResolution, object : CompressionListener {
                     override fun onStart() {
-                        btnStartComPress.progress = 1
+                        btnStartComPress.text = getString(R.string.compressing, 0)
                     }
 
                     override fun onSuccess() {
-                        btnStartComPress.progress = 100
+                        btnStartComPress.isEnabled = true
+                        finish()
                     }
 
                     override fun onFailure(failureMessage: String) {
                         showSnackBar(failureMessage)
+                        btnStartComPress.isEnabled = true
                     }
 
                     override fun onProgress(percent: Float) {
-                        btnStartComPress.progress = percent.toInt()
+                        if (percent.toInt() != 0) {
+                            runOnUiThread {
+                                btnStartComPress.text = getString(R.string.compressing, percent.toInt())
+                            }
+                        }
                     }
 
                     override fun onCancelled() {
                         btnStartComPress.error = getString(R.string.msg_failed_to_compress)
+                        btnStartComPress.isEnabled = true
                     }
                 })
             }
@@ -83,6 +88,7 @@ class ConfigCompressorActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         videoView.releasePlayer()
+        deleteTempFiles()
     }
 
     private fun getCheckedId() = when(AppSettings.videoQuality) {

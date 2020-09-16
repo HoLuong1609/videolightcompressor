@@ -25,5 +25,5 @@
     <string name="file_size">File Size:</string>
     <string name="duration">Duration:</string>
     <string name="msg_failed_to_compress">Failed to compress!</string>
-    <string name="compressing">Compressing…</string>
+    <string name="compressing">Compressing… %d%%</string>
 </resources>
