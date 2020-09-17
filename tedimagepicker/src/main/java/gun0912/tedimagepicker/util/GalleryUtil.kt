@@ -49,7 +49,7 @@ internal class GalleryUtil {
 
                         val totalImageList =
                             generateSequence { if (cursor.moveToNext()) cursor else null }
-                                .map { getImage(it, mediaType) }
+                                .map { getImage(context, it, mediaType) }
                                 .filterNotNull()
                                 .toList()
 
@@ -70,7 +70,7 @@ internal class GalleryUtil {
                             val albumName = context.getString(R.string.ted_image_picker_album_all)
                             Album(
                                 albumName,
-                                getOrElse(0) { Media(albumName, Uri.EMPTY, 0) }.uri,
+                                getOrElse(0) { Media(context, albumName, Uri.EMPTY, 0) }.uri,
                                 this
                             )
                         }
@@ -92,13 +92,13 @@ internal class GalleryUtil {
         private fun getAlbum(entry: Map.Entry<String, List<Media>>) =
             Album(entry.key, entry.value[0].uri, entry.value)
 
-        private fun getImage(cursor: Cursor, mediaType: MediaType): Media? =
+        private fun getImage(context: Context, cursor: Cursor, mediaType: MediaType): Media? =
             try {
                 cursor.run {
                     val folderName = getString(getColumnIndex(albumName))
                     val mediaUri = getMediaUri(mediaType)
                     val datedAddedSecond = getLong(getColumnIndex(INDEX_DATE_ADDED))
-                    Media(folderName, mediaUri, datedAddedSecond)
+                    Media(context, folderName, mediaUri, datedAddedSecond)
                 }
             } catch (exception: Exception) {
                 exception.printStackTrace()

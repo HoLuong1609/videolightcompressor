@@ -100,5 +100,20 @@
                     android:src="@drawable/ic_zoom_out_24dp" />
             </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_rounded_blue"
+            android:layout_gravity="center"
+            android:paddingStart="2dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="3dp"
+            android:text="@{media.videoInfo.size}"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
     </FrameLayout>
 </layout>

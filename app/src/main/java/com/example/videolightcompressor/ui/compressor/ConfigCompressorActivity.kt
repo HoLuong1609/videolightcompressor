@@ -10,6 +10,7 @@ import com.abedelazizshe.lightcompressorlibrary.VideoQuality
 import com.dd.processbutton.iml.ActionProcessButton
 import com.example.videolightcompressor.R
 import com.example.videolightcompressor.extensions.*
+import gun0912.tedimagepicker.extenstion.extractVideoInfo
 import kotlinx.android.synthetic.main.activity_config_compressor.*
 
 class ConfigCompressorActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class ConfigCompressorActivity : AppCompatActivity() {
         val uri = intent.getParcelableExtra<Uri>(KEY_VIDEO_URI)
         uri?.let {
             videoView.setDataSource(it)
-            val videoInfo = it.extractVideoInfo()
+            val videoInfo = it.extractVideoInfo(this)
             tvPath.text = videoInfo.path
             tvResolution.text = videoInfo.resolution
             tvMimeType.text = videoInfo.mimeType
