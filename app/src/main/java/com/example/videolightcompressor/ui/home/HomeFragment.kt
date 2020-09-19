@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.videolightcompressor.R
-import com.example.videolightcompressor.ui.compressor.ConfigCompressorActivity
+import com.example.videolightcompressor.ui.compressor.CompressorActivity
 import gun0912.tedimagepicker.builder.TedImagePicker
 
 class HomeFragment : Fragment() {
@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
             .video()
             .title(R.string.ted_video_picker_title)
             .start { uri ->
-                ConfigCompressorActivity.start(requireContext(), uri)
+                CompressorActivity.start(requireContext(), uri)
             }
     }
 }

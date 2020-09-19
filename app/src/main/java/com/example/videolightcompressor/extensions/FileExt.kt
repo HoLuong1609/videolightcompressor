@@ -57,11 +57,11 @@ fun Uri.compressVideo(
 ) {
     val file = getFileFromUri(appContext)
     val fileFormat = "." + MimeTypeMap.getFileExtensionFromUrl(file.path)
-    val tempVideoCompressorFile =
-        createFileTemp(TEMP_VIDEO_COMPRESSOR_FILE_NAME + System.currentTimeMillis() + fileFormat)
+    val videoCompressorFile =
+        createFile(VIDEO_COMPRESSOR_FILE_NAME + System.currentTimeMillis() + fileFormat)
     VideoCompressor.start(
         file.path,
-        tempVideoCompressorFile.path,
+        videoCompressorFile,
         listener,
         quality,
         isMinBitRateEnabled = false,
@@ -70,7 +70,7 @@ fun Uri.compressVideo(
 }
 
 @Throws(IOException::class)
-fun createFileTemp(fileName: String): File {
+fun createFile(fileName: String): File {
     return if (Environment.getExternalStorageState() ==
         Environment.MEDIA_MOUNTED
     ) {
@@ -123,4 +123,4 @@ fun getRootFolder(): File {
 }
 
 const val ROOT_FOLDER = "VideoCompressor"
-const val TEMP_VIDEO_COMPRESSOR_FILE_NAME = "temp_video_compressor_"
+const val VIDEO_COMPRESSOR_FILE_NAME = "video_compressor_"

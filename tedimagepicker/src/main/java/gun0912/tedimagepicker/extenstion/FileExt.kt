@@ -48,7 +48,7 @@ fun Uri.extractVideoInfo(context: Context): VideoInfo {
     val timeInMilliseconds = videoDuration.toLong()
     return VideoInfo(
         filePath,
-        "${height}x${width}",
+        "${width}x${height}",
         getMimeType(context),
         getFileSize(size.toLong()),
         convertSecondsToTime(timeInMilliseconds / 1000)
@@ -110,7 +110,7 @@ fun getFileSize(length: Long): String {
         return String.format(Locale.getDefault(), "%.1f", resultKB) + " Kb"
     }
     val resultMB = length * 1.0 / MB
-    return String.format(Locale.getDefault(), "%.1f", resultMB) + " Mb"
+    return String.format(Locale.getDefault(), "%.1f", resultMB).replace(",", ".") + " Mb"
 }
 
 private fun unitFormat(i: Int): String {

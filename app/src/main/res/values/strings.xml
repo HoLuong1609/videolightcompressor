@@ -26,4 +26,11 @@
     <string name="duration">Duration:</string>
     <string name="msg_failed_to_compress">Failed to compress!</string>
     <string name="compressing">Compressing… %d%%</string>
+    <string name="before">Before</string>
+    <string name="after">After</string>
+    <string name="compression_result">Compression Result</string>
+    <string name="video_deleted_msg">Video has been deleted!</string>
+    <string name="video_deleted_msg_failed">Failed to delete Video!</string>
+    <string name="delete_video">Delete Video</string>
+    <string name="delete_video_msg">Do you want to delete this Video?</string>
 </resources>

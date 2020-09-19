@@ -3,6 +3,7 @@ package com.abedelazizshe.lightcompressorlibrary
 import com.abedelazizshe.lightcompressorlibrary.Compressor.compressVideo
 import com.abedelazizshe.lightcompressorlibrary.Compressor.isRunning
 import kotlinx.coroutines.*
+import java.io.File
 
 enum class VideoQuality {
     HIGH, MEDIUM, LOW
@@ -13,14 +14,14 @@ object VideoCompressor : CoroutineScope by MainScope() {
     private var job: Job = Job()
 
     private fun doVideoCompression(
-        srcPath: String, destPath: String, quality: VideoQuality,
+        srcPath: String, destFile: File, quality: VideoQuality,
         isMinBitRateEnabled: Boolean, keepOriginalResolution: Boolean, listener: CompressionListener
     ) = launch {
         isRunning = true
         listener.onStart()
         val result = startCompression(
             srcPath,
-            destPath,
+            destFile,
             quality,
             isMinBitRateEnabled,
             keepOriginalResolution,
@@ -29,7 +30,7 @@ object VideoCompressor : CoroutineScope by MainScope() {
 
         // Runs in Main(UI) Thread
         if (result.success) {
-            listener.onSuccess()
+            listener.onSuccess(destFile)
         } else {
             listener.onFailure(result.failureMessage ?: "An error has occurred!")
         }
@@ -38,7 +39,7 @@ object VideoCompressor : CoroutineScope by MainScope() {
 
     fun start(
         srcPath: String,
-        destPath: String,
+        destFile: File,
         listener: CompressionListener,
         quality: VideoQuality = VideoQuality.MEDIUM,
         isMinBitRateEnabled: Boolean = true,
@@ -46,7 +47,7 @@ object VideoCompressor : CoroutineScope by MainScope() {
     ) {
         job = doVideoCompression(
             srcPath,
-            destPath,
+            destFile,
             quality,
             isMinBitRateEnabled,
             keepOriginalResolution,
@@ -61,13 +62,13 @@ object VideoCompressor : CoroutineScope by MainScope() {
 
     // To run code in Background Thread
     private suspend fun startCompression(
-        srcPath: String, destPath: String, quality: VideoQuality, isMinBitRateEnabled: Boolean,
+        srcPath: String, destFile: File, quality: VideoQuality, isMinBitRateEnabled: Boolean,
         keepOriginalResolution: Boolean, listener: CompressionListener
     ): Result = withContext(Dispatchers.IO) {
 
         return@withContext compressVideo(
             srcPath,
-            destPath,
+            destFile,
             quality,
             isMinBitRateEnabled,
             keepOriginalResolution,

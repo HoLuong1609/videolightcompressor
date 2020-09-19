@@ -31,7 +31,7 @@ object Compressor {
 
     fun compressVideo(
         source: String,
-        destination: String,
+        destinationFile: File,
         quality: VideoQuality,
         isMinBitRateEnabled: Boolean,
         keepOriginalResolution: Boolean,
@@ -127,15 +127,13 @@ object Compressor {
 
         if (newWidth != 0 && newHeight != 0) {
 
-            val cacheFile = File(destination)
-
             try {
                 // MediaCodec accesses encoder and decoder components and processes the new video
                 //input to generate a compressed/smaller size video
                 val bufferInfo = MediaCodec.BufferInfo()
 
                 // Setup mp4 movie
-                val movie = setUpMP4Movie(rotation, newWidth, newHeight, cacheFile)
+                val movie = setUpMP4Movie(rotation, newWidth, newHeight, destinationFile)
 
                 // MediaMuxer outputs MP4 in this app
                 val mediaMuxer = MP4Builder().createMovie(movie)

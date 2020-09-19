@@ -10,14 +10,16 @@ import com.abedelazizshe.lightcompressorlibrary.VideoQuality
 import com.dd.processbutton.iml.ActionProcessButton
 import com.example.videolightcompressor.R
 import com.example.videolightcompressor.extensions.*
+import com.example.videolightcompressor.ui.compressionresult.CompressionResultActivity
 import gun0912.tedimagepicker.extenstion.extractVideoInfo
-import kotlinx.android.synthetic.main.activity_config_compressor.*
+import kotlinx.android.synthetic.main.activity_compressor.*
+import java.io.File
 
-class ConfigCompressorActivity : AppCompatActivity() {
+class CompressorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_config_compressor)
+        setContentView(R.layout.activity_compressor)
 
         val uri = intent.getParcelableExtra<Uri>(KEY_VIDEO_URI)
         uri?.let {
@@ -49,8 +51,9 @@ class ConfigCompressorActivity : AppCompatActivity() {
                         btnStartComPress.text = getString(R.string.compressing, 0)
                     }
 
-                    override fun onSuccess() {
+                    override fun onSuccess(file: File) {
                         btnStartComPress.isEnabled = true
+                        CompressionResultActivity.start(this@CompressorActivity, Uri.fromFile(file), videoInfo.size)
                         finish()
                     }
 
@@ -89,7 +92,6 @@ class ConfigCompressorActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         videoView.releasePlayer()
-        deleteTempFiles()
     }
 
     private fun getCheckedId() = when(AppSettings.videoQuality) {
@@ -107,7 +109,7 @@ class ConfigCompressorActivity : AppCompatActivity() {
     companion object {
         private const val KEY_VIDEO_URI = "key_video_uri"
         fun start(context: Context, uri: Uri) {
-            Intent(context, ConfigCompressorActivity::class.java).apply {
+            Intent(context, CompressorActivity::class.java).apply {
                 putExtra(KEY_VIDEO_URI, uri)
                 context.startActivity(this)
             }

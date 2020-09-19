@@ -104,16 +104,30 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:background="@drawable/bg_rounded_blue"
             android:layout_gravity="center"
-            android:paddingStart="2dp"
-            android:paddingTop="3dp"
-            android:paddingEnd="2dp"
-            android:paddingBottom="3dp"
+            android:paddingStart="4dp"
+            android:paddingTop="1dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="1dp"
             android:text="@{media.videoInfo.size}"
             android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:textSize="12sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:alpha="0.6"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
+            android:text="@{media.videoInfo.duration}"
+            tools:text="01:30:00"
+            android:textColor="@color/white"
+            android:textSize="12sp"/>
     </FrameLayout>
 </layout>
