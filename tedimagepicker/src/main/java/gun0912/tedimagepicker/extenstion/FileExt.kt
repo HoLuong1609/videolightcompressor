@@ -50,8 +50,8 @@ fun Uri.extractVideoInfo(context: Context): VideoInfo {
         filePath,
         "${width}x${height}",
         getMimeType(context),
-        getFileSize(size.toLong()),
-        convertSecondsToTime(timeInMilliseconds / 1000)
+        convertSecondsToTime(timeInMilliseconds / 1000),
+        size.toLong()
     )
 }
 

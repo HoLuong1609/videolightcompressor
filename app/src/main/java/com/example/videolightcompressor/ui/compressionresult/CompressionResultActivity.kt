@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.videolightcompressor.R
 import com.example.videolightcompressor.extensions.*
 import gun0912.tedimagepicker.extenstion.extractVideoInfo
+import gun0912.tedimagepicker.extenstion.getFileSize
 import kotlinx.android.synthetic.main.activity_compression_result.*
 
 class CompressionResultActivity : AppCompatActivity() {
@@ -29,20 +30,18 @@ class CompressionResultActivity : AppCompatActivity() {
         mUri?.let {
             videoView.setDataSource(it)
             val videoInfo = it.extractVideoInfo(this)
-            tvFileSizeAfter.text = videoInfo.size
+            tvFileSizeAfter.text = videoInfo.getVideoSize()
             tvPath.text = videoInfo.path
             tvResolution.text = videoInfo.resolution
 
-            val previousSizeString = intent.getStringExtra(KEY_PREVIOUS_FILE_SIZE)
-            val previousFileSize = previousSizeString!!.split(" ")[0].toFloat()
-            val newFileSize = videoInfo.size.split(" ")[0].toFloat()
+            val previousFileSize = intent.getLongExtra(KEY_PREVIOUS_FILE_SIZE, 0)
 
-            tvFileSizeBefore.text = previousSizeString
+            tvFileSizeBefore.text = getFileSize(previousFileSize)
             tvFileSizeBeforeIndicator.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     tvFileSizeBeforeIndicator.viewTreeObserver.removeOnGlobalLayoutListener(this)
                     val lp = tvFileSizeAfterIndicator.layoutParams as ConstraintLayout.LayoutParams
-                    lp.width = (tvFileSizeBeforeIndicator.width * newFileSize / previousFileSize).toInt()
+                    lp.width = (tvFileSizeBeforeIndicator.width * videoInfo.size / previousFileSize).toInt()
                     tvFileSizeAfterIndicator.layoutParams = lp
                 }
 
@@ -101,7 +100,7 @@ class CompressionResultActivity : AppCompatActivity() {
     companion object {
         private const val KEY_VIDEO_URI = "key_video_uri"
         private const val KEY_PREVIOUS_FILE_SIZE = "key_previous_file_size"
-        fun start(context: Context, uri: Uri, previousFileSize: String) {
+        fun start(context: Context, uri: Uri, previousFileSize: Long) {
             Intent(context, CompressionResultActivity::class.java).apply {
                 putExtra(KEY_VIDEO_URI, uri)
                 putExtra(KEY_PREVIOUS_FILE_SIZE, previousFileSize)

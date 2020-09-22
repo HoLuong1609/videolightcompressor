@@ -28,7 +28,7 @@ class CompressorActivity : AppCompatActivity() {
             tvPath.text = videoInfo.path
             tvResolution.text = videoInfo.resolution
             tvMimeType.text = videoInfo.mimeType
-            tvFileSize.text = videoInfo.size
+            tvFileSize.text = videoInfo.getVideoSize()
             tvDuration.text = videoInfo.duration
 
             keepResolutionSwitch.isChecked = AppSettings.keepOriginalResolution

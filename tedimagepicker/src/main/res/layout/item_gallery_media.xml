@@ -110,7 +110,7 @@
             android:paddingTop="1dp"
             android:paddingEnd="4dp"
             android:paddingBottom="1dp"
-            android:text="@{media.videoInfo.size}"
+            android:text="@{media.videoInfo.getVideoSize()}"
             android:textColor="@color/white"
             android:textSize="12sp"/>
 
