@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import gun0912.tedimagepicker.extenstion.extractVideoInfo
 
-internal data class Media(
+data class Media(
     val context: Context,
     val albumName: String,
     val uri: Uri,

@@ -46,6 +46,7 @@ class CompressionResultActivity : AppCompatActivity() {
                 }
 
             })
+            MediaScannerWrapper(this, videoInfo.path, videoInfo.mimeType).scan()
         }
     }
 
@@ -64,6 +65,10 @@ class CompressionResultActivity : AppCompatActivity() {
                 showAlertDialog(title = getString(R.string.delete_video), msg = getString(R.string.delete_video_msg), onPositiveButtonClick = {
                     deleteVideo()
                 }, onNegativeButtonClick = {})
+                true
+            }
+            android.R.id.home -> {
+                onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)

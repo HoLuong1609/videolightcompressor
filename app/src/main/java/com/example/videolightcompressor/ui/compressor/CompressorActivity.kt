@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import com.abedelazizshe.lightcompressorlibrary.CompressionListener
 import com.abedelazizshe.lightcompressorlibrary.VideoQuality
 import com.dd.processbutton.iml.ActionProcessButton
@@ -21,6 +22,8 @@ class CompressorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_compressor)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
         val uri = intent.getParcelableExtra<Uri>(KEY_VIDEO_URI)
         uri?.let {
             videoView.setDataSource(it)
@@ -92,6 +95,16 @@ class CompressorActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         videoView.releasePlayer()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun getCheckedId() = when(AppSettings.videoQuality) {

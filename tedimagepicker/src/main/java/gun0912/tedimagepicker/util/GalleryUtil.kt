@@ -13,7 +13,7 @@ import gun0912.tedimagepicker.model.Media
 import io.reactivex.Single
 import java.io.File
 
-internal class GalleryUtil {
+class GalleryUtil {
     companion object {
 
         private const val INDEX_MEDIA_ID = MediaStore.MediaColumns._ID
@@ -89,10 +89,10 @@ internal class GalleryUtil {
             }
         }
 
-        private fun getAlbum(entry: Map.Entry<String, List<Media>>) =
+        fun getAlbum(entry: Map.Entry<String, List<Media>>) =
             Album(entry.key, entry.value[0].uri, entry.value)
 
-        private fun getImage(context: Context, cursor: Cursor, mediaType: MediaType): Media? =
+        fun getImage(context: Context, cursor: Cursor, mediaType: MediaType): Media? =
             try {
                 cursor.run {
                     val folderName = getString(getColumnIndex(albumName))
