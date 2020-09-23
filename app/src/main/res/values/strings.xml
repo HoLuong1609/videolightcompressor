@@ -16,6 +16,7 @@
     <string name="keep_original_resolution">Keep Original Resolution</string>
     <string name="video_quality">Video Quality</string>
     <string name="video_info">Video Properties</string>
+    <string name="video_detail">Video Detail</string>
     <string name="high">high</string>
     <string name="medium">medium</string>
     <string name="low">low</string>

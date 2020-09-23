@@ -22,4 +22,10 @@
         android:name="com.example.videolightcompressor.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <dialog
+        android:id="@+id/bottomSheetDialog"
+        android:name="com.example.videolightcompressor.ui.gallery.VideoDetailFragment"
+        android:label="@string/video_detail"
+        tools:layout="@layout/fragment_video_detail" />
 </navigation>

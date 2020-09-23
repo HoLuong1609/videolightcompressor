@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.videolightcompressor.R
 import com.example.videolightcompressor.extensions.addTo
@@ -39,9 +40,16 @@ class GalleryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        galleryViewModel.videoList.observe(viewLifecycleOwner, {
-            mAdapter?.setData(it)
-        })
+        galleryViewModel.apply {
+            videoList.observe(viewLifecycleOwner, {
+                mAdapter?.setData(it)
+            })
+            showVideoDetail.observe(viewLifecycleOwner, {uri ->
+                Navigation.findNavController(view).navigate(R.id.bottomSheetDialog, Bundle().apply {
+                    putParcelable(VideoDetailFragment.KEY_VIDEO_URI, uri)
+                })
+            })
+        }
         TedRx2Permission.with(context)
             .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .request()

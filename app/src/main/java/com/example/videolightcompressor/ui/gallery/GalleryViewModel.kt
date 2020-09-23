@@ -1,5 +1,6 @@
 package com.example.videolightcompressor.ui.gallery
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.videolightcompressor.extensions.addTo
@@ -13,6 +14,7 @@ class GalleryViewModel : ViewModel() {
 
     private val disposable = CompositeDisposable()
     val videoList = MutableLiveData<List<Media>>()
+    val showVideoDetail = MutableLiveData<Uri>()
 
     fun getVideoMedia() {
         getResultVideos().subscribeOn(Schedulers.io())
@@ -20,6 +22,10 @@ class GalleryViewModel : ViewModel() {
             .subscribe { mediaList ->
                 videoList.value = mediaList
             }.addTo(disposable)
+    }
+
+    fun showVideoDetail(uri: Uri) {
+        showVideoDetail.value = uri
     }
 
     override fun onCleared() {
