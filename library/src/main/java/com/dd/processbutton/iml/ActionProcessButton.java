@@ -4,7 +4,6 @@ import com.dd.processbutton.ProcessButton;
 import com.dd.processbutton.R;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -15,6 +14,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
 /*
@@ -72,14 +72,12 @@ public class ActionProcessButton extends ProcessButton {
     }
 
     private void init(Context context) {
-        Resources res = context.getResources();
-
         mMode = Mode.ENDLESS;
 
-        mColor1 = res.getColor(R.color.holo_blue_bright);
-        mColor2 = res.getColor(R.color.holo_green_light);
-        mColor3 = res.getColor(R.color.holo_orange_light);
-        mColor4 = res.getColor(R.color.holo_red_light);
+        mColor1 = ContextCompat.getColor(context, R.color.holo_blue_bright);
+        mColor2 = ContextCompat.getColor(context, R.color.holo_green_light);
+        mColor3 = ContextCompat.getColor(context, R.color.holo_orange_light);
+        mColor4 = ContextCompat.getColor(context, R.color.holo_red_light);
     }
 
     public void setMode(Mode mode) {

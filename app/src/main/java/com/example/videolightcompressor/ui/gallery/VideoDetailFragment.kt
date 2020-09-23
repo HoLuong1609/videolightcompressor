@@ -6,7 +6,7 @@ import android.view.View
 import com.example.videolightcompressor.R
 import com.example.videolightcompressor.base.BaseBottomSheetFragment
 import gun0912.tedimagepicker.extenstion.extractVideoInfo
-import kotlinx.android.synthetic.main.activity_compressor.*
+import kotlinx.android.synthetic.main.fragment_video_detail.*
 
 class VideoDetailFragment :
     BaseBottomSheetFragment() {
@@ -24,6 +24,9 @@ class VideoDetailFragment :
             tvMimeType.text = videoInfo.mimeType
             tvFileSize.text = videoInfo.getVideoSize()
             tvDuration.text = videoInfo.duration
+        }
+        actionClose.setOnClickListener {
+            dismiss()
         }
     }
 
