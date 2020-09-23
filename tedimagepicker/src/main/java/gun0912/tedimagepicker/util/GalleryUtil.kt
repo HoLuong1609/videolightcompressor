@@ -49,7 +49,7 @@ class GalleryUtil {
 
                         val totalImageList =
                             generateSequence { if (cursor.moveToNext()) cursor else null }
-                                .map { getImage(context, it, mediaType) }
+                                .map { getImage(context, it, mediaType, albumName) }
                                 .filterNotNull()
                                 .toList()
 
@@ -92,7 +92,7 @@ class GalleryUtil {
         fun getAlbum(entry: Map.Entry<String, List<Media>>) =
             Album(entry.key, entry.value[0].uri, entry.value)
 
-        fun getImage(context: Context, cursor: Cursor, mediaType: MediaType): Media? =
+        fun getImage(context: Context, cursor: Cursor, mediaType: MediaType, albumName: String): Media? =
             try {
                 cursor.run {
                     val folderName = getString(getColumnIndex(albumName))

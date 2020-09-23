@@ -9,9 +9,7 @@ import android.webkit.MimeTypeMap
 import com.abedelazizshe.lightcompressorlibrary.CompressionListener
 import com.abedelazizshe.lightcompressorlibrary.VideoCompressor
 import com.abedelazizshe.lightcompressorlibrary.VideoQuality
-import gun0912.tedimagepicker.R
 import gun0912.tedimagepicker.builder.type.MediaType
-import gun0912.tedimagepicker.model.Album
 import gun0912.tedimagepicker.model.Media
 import gun0912.tedimagepicker.util.GalleryUtil
 import io.reactivex.Single
@@ -128,77 +126,38 @@ fun getRootFolder(): File {
     }
 }
 
-internal fun getMedia(context: Context, mediaType: MediaType): Single<List<Album>> {
-    var albumName = ""
-    return Single.create { emitter ->
-        try {
+ fun getResultVideos(): Single<List<Media>> {
+     var albumName = ""
+     return Single.create { emitter ->
+         try {
+             val uri: Uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+             albumName = MediaStore.Video.Media.BUCKET_DISPLAY_NAME
+             val sortOrder = "${MediaStore.MediaColumns.DATE_ADDED} DESC"
+             val projection =
+                 arrayOf(
+                     MediaStore.MediaColumns._ID,
+                     MediaStore.MediaColumns.DATA,
+                     albumName,
+                     MediaStore.MediaColumns.DATE_ADDED
+                 )
+             val selection = MediaStore.Images.Media.SIZE + " > 0"
+             val cursor =
+                 appContext.contentResolver.query(uri, projection, selection, null, sortOrder)
+             val mediaList: List<Media> = cursor?.let {
+                 generateSequence { if (cursor.moveToNext()) cursor else null }
+                     .map { GalleryUtil.getImage(appContext, it, MediaType.VIDEO, albumName) }
+                     .filter {
+                         it?.uri?.getFileFromUri(appContext)?.parent == getRootFolder().path
+                     }.filterNotNull()
+                     .toList()
+             } ?: emptyList()
 
-            val uri: Uri
-
-            when (mediaType) {
-                MediaType.IMAGE -> {
-                    uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                    albumName = MediaStore.Images.Media.BUCKET_DISPLAY_NAME
-                }
-                MediaType.VIDEO -> {
-                    uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                    albumName = MediaStore.Video.Media.BUCKET_DISPLAY_NAME
-                }
-            }
-
-            val sortOrder = "${MediaStore.MediaColumns.DATE_ADDED} DESC"
-            val projection =
-                arrayOf(
-                    MediaStore.MediaColumns._ID,
-                    MediaStore.MediaColumns.DATA,
-                    albumName,
-                    MediaStore.MediaColumns.DATE_ADDED
-                )
-            val selection = MediaStore.Images.Media.SIZE + " > 0"
-            val cursor =
-                context.contentResolver.query(uri, projection, selection, null, sortOrder)
-            val albumList: List<Album> = cursor?.let {
-
-                val totalImageList =
-                    generateSequence { if (cursor.moveToNext()) cursor else null }
-                        .map { GalleryUtil.getImage(context, it, mediaType) }
-                        .filterNotNull()
-                        .toList()
-
-                val albumList: List<Album> = totalImageList.asSequence()
-                    .groupBy { media: Media -> media.albumName }
-                    .toSortedMap(Comparator { albumName1: String, albumName2: String ->
-                        if (albumName2 == "Camera") {
-                            1
-                        } else {
-                            albumName1.compareTo(albumName2, true)
-                        }
-                    })
-                    .map { entry -> GalleryUtil.getAlbum(entry) }
-                    .toList()
-
-
-                val totalAlbum = totalImageList.run {
-                    val albumNameX = context.getString(R.string.ted_image_picker_album_all)
-                    Album(
-                        albumNameX,
-                        getOrElse(0) { Media(context, albumNameX, Uri.EMPTY, 0) }.uri,
-                        this
-                    )
-                }
-
-                mutableListOf(totalAlbum).apply {
-                    addAll(albumList)
-                }
-            } ?: emptyList()
-
-            cursor?.close()
-            emitter.onSuccess(albumList)
-        } catch (exception: Exception) {
-            emitter.onError(exception)
-        }
-
-    }
+             cursor?.close()
+             emitter.onSuccess(mediaList)
+         } catch (exception: Exception) {
+             emitter.onError(exception)
+         }
+     }
 }
 
 const val ROOT_FOLDER = "VideoCompressor"

@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import com.example.videolightcompressor.ui.VideoCompressorApplication
 import com.google.android.material.snackbar.Snackbar
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 val appContext = VideoCompressorApplication.instance
 
@@ -78,4 +80,8 @@ fun Context.showAlertDialog(
         }
     }
     alertDialog.show()
+}
+
+fun Disposable.addTo(compositeDisposable: CompositeDisposable) {
+    compositeDisposable.add(this)
 }
