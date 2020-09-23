@@ -42,8 +42,12 @@ fun Activity.openStore() {
     }
 }
 
-fun Activity.toast(resId: Int) {
+fun Context.toast(resId: Int) {
     Toast.makeText(this, resId, Toast.LENGTH_SHORT).show()
+}
+
+fun Context.toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
 fun Context.showAlertDialog(
