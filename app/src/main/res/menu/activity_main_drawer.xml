@@ -12,9 +12,30 @@
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
     </group>
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/ic_baseline_email_24"
+            android:title="@string/contact_us" />
+        <item
+            android:id="@+id/nav_share_app"
+            android:icon="@drawable/ic_baseline_share_24"
+            android:title="@string/share_app" />
+        <item
+            android:id="@+id/nav_rate_app"
+            android:icon="@drawable/ic_star"
+            android:title="@string/rate_app" />
+    </group>
+
+    <item android:title="@string/compressed_folder">
+        <menu>
+            <item
+                android:id="@+id/nav_downloaded_wallpaper"
+                android:icon="@drawable/ic_baseline_folder_24"
+                android:title="@string/app_compressed_folder" />
+        </menu>
+    </item>
 </menu>
