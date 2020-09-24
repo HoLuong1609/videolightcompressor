@@ -28,7 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintDimensionRatio="2:1">
 
-                <com.example.videolightcompressor.customView.VideoView
+                <gun0912.tedimagepicker.customView.VideoView
                     android:id="@+id/videoView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

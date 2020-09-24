@@ -11,6 +11,12 @@ import wseemann.media.FFmpegMediaMetadataRetriever
 import java.io.File
 import java.util.*
 
+fun Uri.getFileFromUri(context: Context): File {
+    val filePath = if ("content" == scheme) getDataColumn(context, null, null)
+    else path
+    return File(filePath!!)
+}
+
 fun Uri.getDataColumn(
     context: Context, selection: String?,
     selectionArgs: Array<String?>?

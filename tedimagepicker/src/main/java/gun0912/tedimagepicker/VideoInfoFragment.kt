@@ -1,22 +1,16 @@
-package com.example.videolightcompressor.ui.gallery
+package gun0912.tedimagepicker
 
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import com.example.videolightcompressor.R
 import gun0912.tedimagepicker.base.BaseBottomSheetFragment
-import com.example.videolightcompressor.event.DeleteVideoEvent
-import com.example.videolightcompressor.extensions.showAlertDialog
-import com.example.videolightcompressor.extensions.toast
 import gun0912.tedimagepicker.extenstion.extractVideoInfo
-import gun0912.tedimagepicker.extenstion.getFileFromUri
-import kotlinx.android.synthetic.main.fragment_video_detail.*
-import org.greenrobot.eventbus.EventBus
+import kotlinx.android.synthetic.main.fragment_video_info.*
 
-class VideoDetailFragment :
+class VideoInfoFragment :
     BaseBottomSheetFragment() {
 
-    override fun layoutResId(): Int = R.layout.fragment_video_detail
+    override fun layoutResId(): Int = R.layout.fragment_video_info
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,11 +26,6 @@ class VideoDetailFragment :
         }
         actionClose.setOnClickListener {
             dismiss()
-        }
-        actionDelete.setOnClickListener {
-            context?.showAlertDialog(title = getString(R.string.delete_video), msg = getString(R.string.delete_video_msg), onPositiveButtonClick = {
-                uri?.let { video -> deleteVideo(video) }
-            }, onNegativeButtonClick = {})
         }
     }
 
@@ -55,20 +44,10 @@ class VideoDetailFragment :
         videoView.releasePlayer()
     }
 
-    private fun deleteVideo(uri: Uri) {
-        val file = uri.getFileFromUri(requireContext())
-        if (file.delete()) {
-            EventBus.getDefault().post(DeleteVideoEvent())
-            dismiss()
-        } else {
-            context?.toast(R.string.video_deleted_msg_failed)
-        }
-    }
-
     companion object {
         const val KEY_VIDEO_URI = "key_video_uri"
-        fun newInstance(uri: Uri): VideoDetailFragment =
-            VideoDetailFragment().apply {
+        fun newInstance(uri: Uri): VideoInfoFragment =
+            VideoInfoFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(KEY_VIDEO_URI, uri)
                 }

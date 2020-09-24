@@ -1,12 +1,13 @@
 package gun0912.tedimagepicker.adapter
 
-import android.app.Activity
 import android.net.Uri
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import com.bumptech.glide.Glide
 import gun0912.tedimagepicker.R
+import gun0912.tedimagepicker.VideoInfoFragment
 import gun0912.tedimagepicker.base.BaseSimpleHeaderAdapter
 import gun0912.tedimagepicker.base.BaseViewHolder
 import gun0912.tedimagepicker.builder.TedImagePickerBaseBuilder
@@ -17,7 +18,7 @@ import gun0912.tedimagepicker.model.Media
 import gun0912.tedimagepicker.zoom.TedImageZoomActivity
 
 internal class MediaAdapter(
-    private val activity: Activity,
+    private val activity: AppCompatActivity,
     private val builder: TedImagePickerBaseBuilder<*>
 ) :
     BaseSimpleHeaderAdapter<Media>(if (builder.showCameraTile) 1 else 0) {
@@ -99,13 +100,15 @@ internal class MediaAdapter(
         }
 
         private fun startZoomActivity(media: Media) {
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                activity,
-                binding.ivImage,
-                media.uri.toString()
-            ).toBundle()
-
-            activity.startActivity(TedImageZoomActivity.getIntent(activity, media.uri), options)
+            val fragment = VideoInfoFragment.newInstance(media.uri)
+            fragment.show(activity.supportFragmentManager, fragment.tag)
+//            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                activity,
+//                binding.ivImage,
+//                media.uri.toString()
+//            ).toBundle()
+//
+//            activity.startActivity(TedImageZoomActivity.getIntent(activity, media.uri), options)
 
         }
     }

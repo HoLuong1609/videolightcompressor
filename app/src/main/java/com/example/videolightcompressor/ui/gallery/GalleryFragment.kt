@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.videolightcompressor.R
 import com.example.videolightcompressor.event.DeleteVideoEvent
 import com.example.videolightcompressor.extensions.addTo
-import com.example.videolightcompressor.extensions.getFileFromUri
 import com.example.videolightcompressor.extensions.showAlertDialog
 import com.example.videolightcompressor.extensions.toast
 import com.example.videolightcompressor.ui.adapter.GalleryAdapter
 import com.tedpark.tedpermission.rx2.TedRx2Permission
+import gun0912.tedimagepicker.extenstion.getFileFromUri
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_gallery.*
 import org.greenrobot.eventbus.EventBus

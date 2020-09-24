@@ -7,13 +7,15 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 30
 
         consumerProguardFiles 'consumer-rules.pro'
     }
 
-
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
     dataBinding {
         enabled = true
     }
@@ -51,4 +53,6 @@ dependencies {
 
     implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-core:1.0.15'
     implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-native:1.0.15'
+
+    implementation 'com.google.android.exoplayer:exoplayer:2.11.7'
 }

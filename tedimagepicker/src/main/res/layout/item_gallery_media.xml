@@ -81,24 +81,6 @@
                     tools:background="@drawable/bg_multi_image_selected"
                     tools:text="5" />
             </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/view_zoom_out"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/default_padding_xsmall"
-                android:padding="@dimen/default_padding_xsmall"
-                android:visibility="@{showZoom}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <ImageView
-                    android:layout_width="@dimen/ted_image_picker_zoom_size"
-                    android:layout_height="@dimen/ted_image_picker_zoom_size"
-                    android:adjustViewBounds="true"
-                    android:background="@color/ted_image_picker_zoom_background"
-                    android:src="@drawable/ic_zoom_out_24dp" />
-            </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -129,5 +111,21 @@
             tools:text="01:30:00"
             android:textColor="@color/white"
             android:textSize="12sp"/>
+
+        <FrameLayout
+            android:id="@+id/view_zoom_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_padding_xsmall"
+            android:padding="@dimen/default_padding_xsmall"
+            android:layout_gravity="bottom">
+
+            <ImageView
+                android:layout_width="@dimen/ted_image_picker_zoom_size"
+                android:layout_height="@dimen/ted_image_picker_zoom_size"
+                android:adjustViewBounds="true"
+                android:background="@color/ted_image_picker_zoom_background"
+                android:src="@drawable/ic_zoom_out_24dp" />
+        </FrameLayout>
     </FrameLayout>
 </layout>

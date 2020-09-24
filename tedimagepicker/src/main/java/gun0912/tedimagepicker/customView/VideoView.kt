@@ -1,4 +1,4 @@
-package com.example.videolightcompressor.customView
+package gun0912.tedimagepicker.customView
 
 import android.content.Context
 import android.graphics.Color
@@ -6,13 +6,13 @@ import android.net.Uri
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.videolightcompressor.R
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import gun0912.tedimagepicker.R
 import kotlinx.android.synthetic.main.video_view.view.*
 
 class VideoView @JvmOverloads constructor(

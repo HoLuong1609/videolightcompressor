@@ -1,7 +1,5 @@
 package com.example.videolightcompressor.extensions
 
-import android.content.Context
-import android.database.Cursor
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
@@ -10,41 +8,12 @@ import com.abedelazizshe.lightcompressorlibrary.CompressionListener
 import com.abedelazizshe.lightcompressorlibrary.VideoCompressor
 import com.abedelazizshe.lightcompressorlibrary.VideoQuality
 import gun0912.tedimagepicker.builder.type.MediaType
+import gun0912.tedimagepicker.extenstion.getFileFromUri
 import gun0912.tedimagepicker.model.Media
 import gun0912.tedimagepicker.util.GalleryUtil
 import io.reactivex.Single
 import java.io.File
 import java.io.IOException
-
-fun Uri.getFileFromUri(context: Context): File {
-    val filePath = if ("content" == scheme) getDataColumn(context, null, null)
-    else path
-    return File(filePath!!)
-}
-
-fun Uri.getDataColumn(
-    context: Context, selection: String?,
-    selectionArgs: Array<String?>?
-): String? {
-    var cursor: Cursor? = null
-    val column = MediaStore.Images.Media.DATA
-    val projection = arrayOf(
-        column
-    )
-    try {
-        cursor = context.contentResolver.query(
-            this, projection, selection, selectionArgs,
-            null
-        )
-        if (cursor != null && cursor.moveToFirst()) {
-            val columnIndex: Int = cursor.getColumnIndexOrThrow(column)
-            return cursor.getString(columnIndex)
-        }
-    } finally {
-        cursor?.close()
-    }
-    return null
-}
 
 fun deleteTempFiles() {
     getRootFolder().listFiles()?.let {
