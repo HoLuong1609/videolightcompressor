@@ -5,8 +5,13 @@ import android.os.Bundle
 import android.view.View
 import com.example.videolightcompressor.R
 import com.example.videolightcompressor.base.BaseBottomSheetFragment
+import com.example.videolightcompressor.event.DeleteVideoEvent
+import com.example.videolightcompressor.extensions.getFileFromUri
+import com.example.videolightcompressor.extensions.showAlertDialog
+import com.example.videolightcompressor.extensions.toast
 import gun0912.tedimagepicker.extenstion.extractVideoInfo
 import kotlinx.android.synthetic.main.fragment_video_detail.*
+import org.greenrobot.eventbus.EventBus
 
 class VideoDetailFragment :
     BaseBottomSheetFragment() {
@@ -28,6 +33,11 @@ class VideoDetailFragment :
         actionClose.setOnClickListener {
             dismiss()
         }
+        actionDelete.setOnClickListener {
+            context?.showAlertDialog(title = getString(R.string.delete_video), msg = getString(R.string.delete_video_msg), onPositiveButtonClick = {
+                uri?.let { video -> deleteVideo(video) }
+            }, onNegativeButtonClick = {})
+        }
     }
 
     override fun onResume() {
@@ -43,6 +53,16 @@ class VideoDetailFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         videoView.releasePlayer()
+    }
+
+    private fun deleteVideo(uri: Uri) {
+        val file = uri.getFileFromUri(requireContext())
+        if (file.delete()) {
+            EventBus.getDefault().post(DeleteVideoEvent())
+            dismiss()
+        } else {
+            context?.toast(R.string.video_deleted_msg_failed)
+        }
     }
 
     companion object {

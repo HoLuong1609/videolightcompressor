@@ -15,6 +15,7 @@ class GalleryViewModel : ViewModel() {
     private val disposable = CompositeDisposable()
     val videoList = MutableLiveData<List<Media>>()
     val showVideoDetail = MutableLiveData<Uri>()
+    val deleteVideo = MutableLiveData<Uri>()
 
     fun getVideoMedia() {
         getResultVideos().subscribeOn(Schedulers.io())
@@ -26,6 +27,10 @@ class GalleryViewModel : ViewModel() {
 
     fun showVideoDetail(uri: Uri) {
         showVideoDetail.value = uri
+    }
+
+    fun delete(uri: Uri) {
+        deleteVideo.value = uri
     }
 
     override fun onCleared() {

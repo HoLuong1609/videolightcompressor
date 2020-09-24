@@ -2,6 +2,7 @@ package com.example.videolightcompressor.ui.gallery
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,12 +16,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.videolightcompressor.R
+import com.example.videolightcompressor.event.DeleteVideoEvent
 import com.example.videolightcompressor.extensions.addTo
+import com.example.videolightcompressor.extensions.getFileFromUri
+import com.example.videolightcompressor.extensions.showAlertDialog
 import com.example.videolightcompressor.extensions.toast
 import com.example.videolightcompressor.ui.adapter.GalleryAdapter
 import com.tedpark.tedpermission.rx2.TedRx2Permission
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_gallery.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class GalleryFragment : Fragment() {
 
@@ -49,6 +56,11 @@ class GalleryFragment : Fragment() {
                     putParcelable(VideoDetailFragment.KEY_VIDEO_URI, uri)
                 })
             })
+            deleteVideo.observe(viewLifecycleOwner, {uri ->
+                context?.showAlertDialog(title = getString(R.string.delete_video), msg = getString(R.string.delete_video_msg), onPositiveButtonClick = {
+                    deleteVideo(uri)
+                }, onNegativeButtonClick = {})
+            })
         }
         TedRx2Permission.with(context)
             .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -61,18 +73,23 @@ class GalleryFragment : Fragment() {
                 }
             }, { throwable -> context?.toast(throwable.localizedMessage ?: "") })
             .addTo(disposable)
+        EventBus.getDefault().register(this)
     }
 
     override fun onResume() {
         super.onResume()
-        if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            galleryViewModel.getVideoMedia()
-        }
+        getVideo()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         disposable.clear()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun deleteVideo(event: DeleteVideoEvent) {
+        getVideo()
     }
 
     private fun setupRecyclerView() {
@@ -83,6 +100,12 @@ class GalleryFragment : Fragment() {
             }
             setHasFixedSize(true)
             adapter = mAdapter
+        }
+    }
+
+    private fun getVideo() {
+        if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            galleryViewModel.getVideoMedia()
         }
     }
 
@@ -109,6 +132,15 @@ class GalleryFragment : Fragment() {
             } else true
         } else {
             true
+        }
+    }
+
+    private fun deleteVideo(uri: Uri) {
+        val file = uri.getFileFromUri(requireContext())
+        if (file.delete()) {
+            galleryViewModel.getVideoMedia()
+        } else {
+            context?.toast(R.string.video_deleted_msg_failed)
         }
     }
 }

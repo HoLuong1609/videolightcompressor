@@ -57,4 +57,5 @@ dependencies {
     implementation project(path: ':tedimagepicker')
     implementation project(path: ':lightcompressor')
     implementation project(path: ':library')
+    implementation 'org.greenrobot:eventbus:3.2.0'
 }
