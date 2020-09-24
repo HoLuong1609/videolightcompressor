@@ -12,6 +12,8 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="compress_video">Compress Video</string>
     <string name="start_compress">Start</string>
+    <string name="cancel">Cancel</string>
+    <string name="cancel_message">Do you want to cancel current job?</string>
     <string name="compress">Compress</string>
     <string name="keep_original_resolution">Keep Original Resolution</string>
     <string name="video_quality">Video Quality</string>

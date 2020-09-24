@@ -5,8 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import com.abedelazizshe.lightcompressorlibrary.CompressionListener
+import com.abedelazizshe.lightcompressorlibrary.VideoCompressor
 import com.abedelazizshe.lightcompressorlibrary.VideoQuality
 import com.dd.processbutton.iml.ActionProcessButton
 import com.example.videolightcompressor.R
@@ -20,8 +22,10 @@ class CompressorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.CompressTheme)
         setContentView(R.layout.activity_compressor)
 
+        setTitle(R.string.menu_home)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         val uri = intent.getParcelableExtra<Uri>(KEY_VIDEO_URI)
@@ -49,6 +53,8 @@ class CompressorActivity : AppCompatActivity() {
             btnStartComPress.setMode(ActionProcessButton.Mode.ENDLESS)
             btnStartComPress.setOnClickListener {
                 btnStartComPress.isEnabled = false
+                btnStartComPress.progress = 1
+                invalidateOptionsMenu()
                 uri.compressVideo(getVideoQuality(), AppSettings.keepOriginalResolution, object : CompressionListener {
                     override fun onStart() {
                         btnStartComPress.text = getString(R.string.compressing, 0)
@@ -66,15 +72,17 @@ class CompressorActivity : AppCompatActivity() {
                     }
 
                     override fun onProgress(percent: Float) {
-                        if (percent.toInt() != 0) {
+                        val progress = percent.toInt()
+                        if (progress != 0 && btnStartComPress.progress != 0) {
                             runOnUiThread {
-                                btnStartComPress.text = getString(R.string.compressing, percent.toInt())
+                                btnStartComPress.text = getString(R.string.compressing, progress)
                             }
                         }
                     }
 
                     override fun onCancelled() {
-                        btnStartComPress.error = getString(R.string.msg_failed_to_compress)
+                        btnStartComPress.setText(R.string.start_compress)
+                        invalidateOptionsMenu()
                         btnStartComPress.isEnabled = true
                     }
                 })
@@ -97,8 +105,21 @@ class CompressorActivity : AppCompatActivity() {
         videoView.releasePlayer()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.compressor, menu)
+        menu.findItem(R.id.action_cancel).isVisible = btnStartComPress.progress != 0
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_cancel -> {
+                showAlertDialog(msg = getString(R.string.cancel_message), onPositiveButtonClick = {
+                    btnStartComPress.progress = 0
+                    VideoCompressor.cancel()
+                }, onNegativeButtonClick = {})
+                true
+            }
             android.R.id.home -> {
                 onBackPressed()
                 true
