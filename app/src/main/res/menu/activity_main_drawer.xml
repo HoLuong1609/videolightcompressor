@@ -33,7 +33,7 @@
     <item android:title="@string/compressed_folder">
         <menu>
             <item
-                android:id="@+id/nav_downloaded_wallpaper"
+                android:id="@+id/nav_compressed_folder"
                 android:icon="@drawable/ic_baseline_folder_24"
                 android:title="@string/app_compressed_folder" />
         </menu>

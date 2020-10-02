@@ -75,11 +75,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 true
             }
             R.id.nav_contact_us -> {
+                drawerLayout.closeDrawer(GravityCompat.START)
                 contactUs()
                 true
             }
             R.id.nav_share_app -> {
+                drawerLayout.closeDrawer(GravityCompat.START)
                 shareApp()
+                true
+            }
+            R.id.nav_compressed_folder -> {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                navController.navigate(R.id.nav_gallery)
                 true
             }
             else -> super.onOptionsItemSelected(item)
