@@ -20,7 +20,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:drawableEnd="@drawable/ic_menu_gallery"/>
+        android:drawableEnd="@drawable/ic_baseline_folder_24"/>
 
     <com.dd.processbutton.iml.ActionProcessButton
         android:id="@+id/btnCompressVideo"
@@ -36,5 +36,5 @@
         app:pb_colorPressed="@color/blue_pressed"
         app:pb_colorProgress="@color/purple_progress"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:drawableEnd="@drawable/ic_menu_camera"/>
+        android:drawableEnd="@drawable/ic_video_compressor"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
