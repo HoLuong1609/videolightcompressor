@@ -1,11 +1,11 @@
-Fast and Quickly compress video, trim your videos and fast forward your videos with show result folder.
+Video light compressor and resizer - Fast and Quickly compress video and fast forward your videos in a light-way with show result folder.
 Quickly reduce video size by choosing video quality.
 Showing detail video before compress and also compare video size before vs after compressor.
 
 Supported Video Compressor formats:
 mp4, avi, mkv, flv, rmvb, 3gp, mpeg, wmv, mov
 
-Features:
+Features of Video light compressor and resizer:
 🎬 Compress videos with high/normal/low quality
 🎬 Compress videos in background - while doing your own work
 🎬 Playing Video - before or while compressing videos
@@ -15,4 +15,4 @@ Features:
 🎬 Supports compress almost all video formats
 🎬 Built using FFMPEG great media library
 🎬 Share videos
-🎬 Fast and Easy-to-use
+🎬 Fast and Easy to use

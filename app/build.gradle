@@ -5,10 +5,9 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.0"
 
     defaultConfig {
-        applicationId "com.example.videolightcompressor"
+        applicationId "com.video.lightcompressor"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
