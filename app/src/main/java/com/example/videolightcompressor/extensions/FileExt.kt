@@ -1,5 +1,6 @@
 package com.example.videolightcompressor.extensions
 
+import android.content.ContentResolver
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
@@ -7,6 +8,7 @@ import android.webkit.MimeTypeMap
 import com.abedelazizshe.lightcompressorlibrary.CompressionListener
 import com.abedelazizshe.lightcompressorlibrary.VideoCompressor
 import com.abedelazizshe.lightcompressorlibrary.VideoQuality
+import com.example.videolightcompressor.ui.VideoCompressorApplication
 import gun0912.tedimagepicker.builder.type.MediaType
 import gun0912.tedimagepicker.extenstion.getFileFromUri
 import gun0912.tedimagepicker.model.Media
@@ -14,6 +16,9 @@ import gun0912.tedimagepicker.util.GalleryUtil
 import io.reactivex.Single
 import java.io.File
 import java.io.IOException
+import java.util.*
+
+val appContext = VideoCompressorApplication.instance
 
 fun deleteTempFiles() {
     getRootFolder().listFiles()?.let {
@@ -29,7 +34,8 @@ fun Uri.compressVideo(
     listener: CompressionListener
 ) {
     val file = getFileFromUri(appContext)
-    val fileFormat = "." + MimeTypeMap.getFileExtensionFromUrl(file.path)
+    val type: String? = getMimeType()
+    val fileFormat = ".$type"
     val videoCompressorFile =
         createFile(VIDEO_COMPRESSOR_FILE_NAME + System.currentTimeMillis() + fileFormat)
     VideoCompressor.start(
@@ -40,6 +46,13 @@ fun Uri.compressVideo(
         isMinBitRateEnabled = false,
         keepOriginalResolution = keepOriginalResolution
     )
+}
+
+fun Uri.getMimeType(): String? {
+    return if (ContentResolver.SCHEME_CONTENT == scheme)
+        appContext.contentResolver.getType(this)
+    else
+        MimeTypeMap.getFileExtensionFromUrl(toString()).toLowerCase(Locale.ROOT)
 }
 
 @Throws(IOException::class)

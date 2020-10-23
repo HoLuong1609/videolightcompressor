@@ -158,7 +158,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
                     android:ellipsize="end"
-                    android:maxLines="2"
+                    android:maxLines="3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/labelBarrier"
                     app:layout_constraintTop_toTopOf="@id/tvPathTitle"

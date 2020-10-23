@@ -1,4 +1,4 @@
-package com.example.videolightcompressor.extensions
+package gun0912.tedimagepicker.extenstion
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -9,12 +9,9 @@ import android.net.Uri
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
-import com.example.videolightcompressor.ui.VideoCompressorApplication
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-
-val appContext = VideoCompressorApplication.instance
 
 fun Activity.showSnackBar(@StringRes resId: Int) {
     Snackbar.make(window.decorView.rootView, resId, Snackbar.LENGTH_SHORT).show()

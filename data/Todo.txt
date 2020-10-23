@@ -1,0 +1,18 @@
+Fast and Quickly compress video, trim your videos and fast forward your videos with show result folder.
+Quickly reduce video size by choosing video quality.
+Showing detail video before compress and also compare video size before vs after compressor.
+
+Supported Video Compressor formats:
+mp4, avi, mkv, flv, rmvb, 3gp, mpeg, wmv, mov
+
+Features:
+🎬 Compress videos with high/normal/low quality
+🎬 Compress videos in background - while doing your own work
+🎬 Playing Video - before or while compressing videos
+🎬 Fast forward and compress video
+🎬 Use hardware codec, fast compression
+🎬 Compress an uncompressed video by keeping original quality
+🎬 Supports compress almost all video formats
+🎬 Built using FFMPEG great media library
+🎬 Share videos
+🎬 Fast and Easy-to-use

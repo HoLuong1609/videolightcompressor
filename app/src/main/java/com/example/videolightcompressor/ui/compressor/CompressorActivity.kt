@@ -15,6 +15,8 @@ import com.example.videolightcompressor.R
 import com.example.videolightcompressor.extensions.*
 import com.example.videolightcompressor.ui.compressionresult.CompressionResultActivity
 import gun0912.tedimagepicker.extenstion.extractVideoInfo
+import gun0912.tedimagepicker.extenstion.showAlertDialog
+import gun0912.tedimagepicker.extenstion.showSnackBar
 import kotlinx.android.synthetic.main.activity_compressor.*
 import java.io.File
 

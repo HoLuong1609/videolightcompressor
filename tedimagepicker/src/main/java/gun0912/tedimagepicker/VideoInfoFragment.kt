@@ -1,14 +1,21 @@
 package gun0912.tedimagepicker
 
+import android.Manifest
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import com.tedpark.tedpermission.rx2.TedRx2Permission
 import gun0912.tedimagepicker.base.BaseBottomSheetFragment
-import gun0912.tedimagepicker.extenstion.extractVideoInfo
+import gun0912.tedimagepicker.event.DeleteVideoEvent
+import gun0912.tedimagepicker.extenstion.*
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_video_info.*
+import org.greenrobot.eventbus.EventBus
 
 class VideoInfoFragment :
     BaseBottomSheetFragment() {
+
+    private val disposable = CompositeDisposable()
 
     override fun layoutResId(): Int = R.layout.fragment_video_info
 
@@ -27,6 +34,11 @@ class VideoInfoFragment :
         actionClose.setOnClickListener {
             dismiss()
         }
+        actionDelete.setOnClickListener {
+            context?.showAlertDialog(title = getString(R.string.delete_video), msg = getString(R.string.delete_video_msg), onPositiveButtonClick = {
+                uri?.let { video -> deleteVideo(video) }
+            }, onNegativeButtonClick = {})
+        }
     }
 
     override fun onResume() {
@@ -42,6 +54,27 @@ class VideoInfoFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         videoView.releasePlayer()
+        disposable.clear()
+    }
+
+    private fun deleteVideo(uri: Uri) {
+        TedRx2Permission.with(context)
+            .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .request()
+            .subscribe({ permissionResult ->
+                if (permissionResult.isGranted) {
+                    val file = uri.getFileFromUri(requireContext())
+                    if (file.delete()) {
+                        EventBus.getDefault().post(DeleteVideoEvent())
+                        dismiss()
+                    } else {
+                        context?.toast(R.string.video_deleted_msg_failed)
+                    }
+                } else {
+                    context?.toast(getString(R.string.permission_denied))
+                }
+            }, { throwable -> context?.toast(throwable.localizedMessage ?: "") })
+            .addTo(disposable)
     }
 
     companion object {

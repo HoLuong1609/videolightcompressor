@@ -1,0 +1,3 @@
+package gun0912.tedimagepicker.event
+
+class DeleteVideoEvent

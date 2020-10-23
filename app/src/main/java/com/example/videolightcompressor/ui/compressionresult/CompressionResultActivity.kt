@@ -11,9 +11,7 @@ import android.view.ViewTreeObserver.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.videolightcompressor.R
 import com.example.videolightcompressor.extensions.*
-import gun0912.tedimagepicker.extenstion.extractVideoInfo
-import gun0912.tedimagepicker.extenstion.getFileFromUri
-import gun0912.tedimagepicker.extenstion.getFileSize
+import gun0912.tedimagepicker.extenstion.*
 import kotlinx.android.synthetic.main.activity_compression_result.*
 
 class CompressionResultActivity : AppCompatActivity() {

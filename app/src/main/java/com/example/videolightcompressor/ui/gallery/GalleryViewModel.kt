@@ -3,7 +3,7 @@ package com.example.videolightcompressor.ui.gallery
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.videolightcompressor.extensions.addTo
+import gun0912.tedimagepicker.extenstion.addTo
 import com.example.videolightcompressor.extensions.getResultVideos
 import gun0912.tedimagepicker.model.Media
 import io.reactivex.android.schedulers.AndroidSchedulers

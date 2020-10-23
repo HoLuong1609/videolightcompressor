@@ -21,6 +21,9 @@ class HomeFragment : Fragment() {
         root.findViewById<View>(R.id.btnCompressVideo).setOnClickListener {
             openVideoPicker()
         }
+        root.findViewById<View>(R.id.ivCompressor).setOnClickListener {
+            openVideoPicker()
+        }
         root.findViewById<View>(R.id.btnResultFolder).setOnClickListener {
             view?.let { view ->
                 Navigation.findNavController(view).navigate(R.id.nav_gallery)

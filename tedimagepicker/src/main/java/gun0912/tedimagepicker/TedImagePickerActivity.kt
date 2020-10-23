@@ -30,6 +30,7 @@ import gun0912.tedimagepicker.builder.TedImagePickerBaseBuilder
 import gun0912.tedimagepicker.builder.type.AlbumType
 import gun0912.tedimagepicker.builder.type.SelectType
 import gun0912.tedimagepicker.databinding.ActivityTedImagePickerBinding
+import gun0912.tedimagepicker.event.DeleteVideoEvent
 import gun0912.tedimagepicker.extenstion.close
 import gun0912.tedimagepicker.extenstion.isOpen
 import gun0912.tedimagepicker.extenstion.setLock
@@ -41,6 +42,9 @@ import gun0912.tedimagepicker.util.MediaUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -74,7 +78,7 @@ internal class TedImagePickerActivity : AppCompatActivity() {
         setupButton()
         setupAlbumType()
         loadMedia()
-
+        EventBus.getDefault().register(this)
     }
 
     private fun startAnimation() {
@@ -364,7 +368,6 @@ internal class TedImagePickerActivity : AppCompatActivity() {
 
     private fun onMultiMediaDone() {
 
-
         val selectedUriList = mediaAdapter.selectedUriList
         if (selectedUriList.size < builder.minCount) {
             val message = builder.minCountMessage ?: getString(builder.minCountMessageResId)
@@ -455,8 +458,13 @@ internal class TedImagePickerActivity : AppCompatActivity() {
             disposable.dispose()
         }
         super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun deleteVideo(event: DeleteVideoEvent) {
+        loadMedia(true)
+    }
 
     companion object {
         private const val IMAGE_SPAN_COUNT = 3

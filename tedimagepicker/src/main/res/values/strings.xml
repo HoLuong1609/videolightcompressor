@@ -6,4 +6,9 @@
     <string name="ted_image_picker_done">Done</string>
     <string name="ted_image_picker_max_count">You can not add more</string>
     <string name="ted_image_picker_min_count">You have to choice images</string>
+
+    <string name="video_deleted_msg_failed">Failed to delete Video!</string>
+    <string name="delete_video">Delete Video</string>
+    <string name="delete_video_msg">Do you want to delete this Video?</string>
+    <string name="permission_denied">Permission denied</string>
 </resources>

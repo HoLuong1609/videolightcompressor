@@ -16,10 +16,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.videolightcompressor.R
-import com.example.videolightcompressor.event.DeleteVideoEvent
-import com.example.videolightcompressor.extensions.addTo
-import com.example.videolightcompressor.extensions.showAlertDialog
-import com.example.videolightcompressor.extensions.toast
+import gun0912.tedimagepicker.event.DeleteVideoEvent
+import gun0912.tedimagepicker.extenstion.addTo
+import gun0912.tedimagepicker.extenstion.showAlertDialog
+import gun0912.tedimagepicker.extenstion.toast
 import com.example.videolightcompressor.ui.adapter.GalleryAdapter
 import com.tedpark.tedpermission.rx2.TedRx2Permission
 import gun0912.tedimagepicker.extenstion.getFileFromUri
